@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Missile
   - zombie
+  - zombieChild
+  - FinishPoint
+  - finishZombie
   layers:
   - Default
   - TransparentFX

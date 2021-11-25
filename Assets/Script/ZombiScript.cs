@@ -9,7 +9,7 @@ public class ZombiScript : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        int randomanimation = Random.Range(0, 3);
+        int randomanimation = Random.Range(0, 2);
         switch (randomanimation)
         {
             case 0:
@@ -17,10 +17,6 @@ public class ZombiScript : MonoBehaviour
                 break;
             case 1:
                 anim.SetBool("run2", true);
-                break;
-            case 2:
-                anim.SetBool("run3", true);
-                //anim.speed = 3;
                 break;
             default:
                 break;
