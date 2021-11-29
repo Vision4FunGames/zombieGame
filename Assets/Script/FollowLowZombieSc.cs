@@ -7,7 +7,8 @@ public class FollowLowZombieSc : MonoBehaviour
 {
     public GameObject player;
     public GameObject[] zombiePrefab;
-    public GameObject RagdollObj;
+    public GameObject[] RagdollObj;
+    public GameObject freezombie;
     public Vector3 offset;
     public float radius = 5.0F;
     public float power = 10.0F;
@@ -20,7 +21,7 @@ public class FollowLowZombieSc : MonoBehaviour
         zombiCount = GameManager.Instance.zombiCount;
         for (int i = 0; i < transform.GetChild(0).childCount; i++)
         {
-            Instantiate(zombiePrefab[Random.Range(0, 2)], transform.GetChild(0).GetChild(i));
+            Instantiate(zombiePrefab[Random.Range(0, 3)], transform.GetChild(0).GetChild(i));
         }
         checkZombie();
     }
@@ -44,7 +45,8 @@ public class FollowLowZombieSc : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            GameObject temp = Instantiate(RagdollObj);
+            int rand = Random.Range(0, 3);
+            GameObject temp = Instantiate(RagdollObj[rand]);
             Destroy(temp, 8);
             temp.transform.position = transform.position + new Vector3(Random.Range(-3f, 3f), Random.Range(1f, 3f), 20);
             StartCoroutine(usepower(temp));
@@ -99,5 +101,37 @@ public class FollowLowZombieSc : MonoBehaviour
             }
         }
         UiManager.Instance.ZombieText.text = (zombiCount + count).ToString();
+    }
+    public void carpmaislemi(int multpy)
+    {
+        int count = 0;
+        for (int i = 0; i < transform.GetChild(0).childCount; i++)
+        {
+            if (transform.GetChild(0).GetChild(i).childCount > 0)
+            {
+                count++;
+            }
+        }
+        zombiCount = ((count * multpy) - count) + (zombiCount * multpy);
+
+        UiManager.Instance.ZombieText.text = (zombiCount + count).ToString();
+        extraPeopleUpdate();
+    }
+    public void extraPeopleUpdate()
+    {
+        for (int i = 0; i < freezombie.transform.childCount; i++)
+        {
+            if (freezombie.transform.GetChild(i).childCount <= 0)
+            {
+                if (zombiCount > 0)
+                {
+                    zombiCount--;
+                    GameObject temp = Instantiate(zombiePrefab[Random.Range(0, 2)], transform.GetChild(0).GetChild(i));
+                    temp.transform.position = temp.transform.position - new Vector3(0, 0, +40);
+                    temp.transform.DOLocalMove(temp.transform.localPosition + new Vector3(0, 0, +40), 2f);
+                }
+                Invoke("checkZombie", 0.1f);
+            }
+        }
     }
 }

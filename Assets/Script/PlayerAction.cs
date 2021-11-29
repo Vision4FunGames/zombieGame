@@ -25,12 +25,15 @@ public class PlayerAction : MonoBehaviour
         if (other.CompareTag("Finish"))
         {
             anim.SetBool("Run", true);
+            _player.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1f);
             _player.transform.DOMove(finishPoint.transform.position, 2f).OnComplete(() =>
             {
-                _player.GetComponent<ShootDetect>().enabled = true;
+              
+                //followZombie.gameObject.SetActive(false);
                 coverWall();
                 FreeZombie();
-                other.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+               // other.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                _player.GetComponent<ShootDetect>().enabled = true;
             });
             _player.transform.parent = null;
             plmovement.enabled = false;
@@ -41,16 +44,14 @@ public class PlayerAction : MonoBehaviour
     }
     public void FreeZombie()
     {
-        for (int i = 0; i < followZombie.zombiePrefab.Length; i++)
+        for (int i = 0; i < followZombie.freezombie.transform.childCount; i++)
         {
-            followZombie.zombiePrefab[i].transform.parent = null;
-            followZombie.zombiePrefab[i].GetComponent<FinishZombieSc>().enabled = true;
-            followZombie.zombiePrefab[i].GetComponent<ZombiScript>().enabled = false;
+            followZombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<ZombiScript>().enabled = false;
+            followZombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<FinishZombieSc>().enabled = true;
         }
     }
     public void coverWall()
     {
         anim.SetBool("Shoot", true);
     }
-
 }

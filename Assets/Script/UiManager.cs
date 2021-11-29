@@ -6,7 +6,9 @@ using TMPro;
 
 public class UiManager : Singleton<UiManager>
 {
-    public TextMeshProUGUI ZombieText; 
+    public TextMeshProUGUI ZombieText;
+    public GameObject loseP;
+    public GameObject winP;
     void Start()
     {
         

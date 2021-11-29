@@ -5,14 +5,35 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public int zombiCount;
+    FollowLowZombieSc flzombie;
+    PlayerAction plaction;
 
     void Start()
     {
-         UiManager.Instance.ZombieText.text = zombiCount.ToString();
+        UiManager.Instance.ZombieText.text = zombiCount.ToString();
+
+        plaction = FindObjectOfType<PlayerAction>();
     }
 
-    void Update()
+    public void failGame()
     {
-        
+        flzombie = FindObjectOfType<FollowLowZombieSc>();
+        for (int i = 0; i < flzombie.freezombie.transform.childCount; i++)
+        {
+            if (flzombie.freezombie.transform.GetChild(i).childCount > 0)
+            {
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<FinishZombieSc>().isDead = true;
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<FinishZombieSc>().anim.SetBool("run1", false);
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<FinishZombieSc>().anim.SetBool("run2", false);
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<FinishZombieSc>().anim.SetBool("idle", true);
+            }
+        }
+        plaction.anim.SetBool("dead", true);
+        UiManager.Instance.loseP.SetActive(true);
+        Camera.main.GetComponent<CameraFollow>().lose = true;
+    }
+    public void winGame()
+    {
+        UiManager.Instance.winP.SetActive(true);
     }
 }

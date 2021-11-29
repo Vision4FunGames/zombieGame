@@ -42,16 +42,22 @@ public class FallObj : MonoBehaviour
         }
         if (other.CompareTag("zombieChild"))
         {
-            if (isOpen)
-            {
-                zombiesPrefab.transform.GetChild(count).gameObject.SetActive(true);
-                Destroy(other.gameObject);
-                GameObject current = other.gameObject.transform.parent.gameObject;
-                count++;
-                followzombie.extraPeople(current);
-               // UiManager.Instance.ZombieText.text = followzombie.zombiCount.ToString();
-                //followzombie.extraPeople();
-            }
+            StartCoroutine(waitforsecondnext(other.gameObject));
         }
+    }
+    IEnumerator waitforsecondnext(GameObject obj)
+    {
+        yield return new WaitForSeconds(0.5f);
+        fallZombies(obj);
+    }
+    public void fallZombies(GameObject other)
+    {
+        zombiesPrefab.transform.GetChild(count).gameObject.SetActive(true);
+        Destroy(other.gameObject);
+        GameObject current = other.gameObject.transform.parent.gameObject;
+        count++;
+        followzombie.extraPeople(current);
+        // UiManager.Instance.ZombieText.text = followzombie.zombiCount.ToString();
+        //followzombie.extraPeople();
     }
 }

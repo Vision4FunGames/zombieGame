@@ -9,6 +9,9 @@ public class ShootDetect : MonoBehaviour
     public GameObject spawnBullet;
     public GameObject bullet;
     public int count;
+
+    public float timer;
+    public float delay;
     void Start()
     {
         foreach (FinishZombieSc fooObj in FindObjectsOfType<FinishZombieSc>())
@@ -19,26 +22,42 @@ public class ShootDetect : MonoBehaviour
 
     public void shoot()
     {
-    
-        float DistanceFloat = Vector3.Distance(finishZombies[0].transform.position, transform.position);
-        for (int i = 0; i < finishZombies.Count; i++)
+        if (finishZombies.Count > 0)
         {
-            if (Vector3.Distance(finishZombies[i].transform.position, transform.position) <= DistanceFloat)
+            float DistanceFloat = Vector3.Distance(finishZombies[0].transform.position, transform.position);
+            for (int i = 0; i < finishZombies.Count; i++)
             {
-                DistanceFloat = Vector3.Distance(finishZombies[i].transform.position, transform.position);
-                count = i;
+                if (Vector3.Distance(finishZombies[i].transform.position, transform.position) <= DistanceFloat)
+                {
+                    DistanceFloat = Vector3.Distance(finishZombies[i].transform.position, transform.position);
+                    count = i;
+                }
             }
+            GameObject tempBullet = Instantiate(bullet);
+            tempBullet.transform.parent = null;
+            tempBullet.transform.position = spawnBullet.transform.position;
+            tempBullet.transform.DOMove(finishZombies[count].transform.position, 0.5f).OnComplete(() =>
+            {
+                tempBullet.SetActive(false);
+                finishZombies[count].GetComponent<Animator>().SetBool("death", true);
+                finishZombies[count].GetComponent<Animator>().speed = 1;
+                finishZombies[count].isDead = true;
+                finishZombies.Remove(finishZombies[count]);
+            });
         }
-        GameObject tempBullet = Instantiate(bullet);
-        tempBullet.transform.parent = null;
-        tempBullet.transform.position = spawnBullet.transform.position;
-        tempBullet.transform.DOMove(finishZombies[count].transform.position, 0.5f).OnComplete(() =>
+        else
         {
-            tempBullet.SetActive(false);
-            finishZombies[count].GetComponent<Animator>().SetBool("death", true);
-            finishZombies[count].GetComponent<Animator>().speed = 1;
-            finishZombies[count].isDead = true;
-            finishZombies.Remove(finishZombies[count]);
-        });
+            GameManager.Instance.winGame();
+        }
+    }
+
+    private void Update()
+    {
+        timer = timer + Time.deltaTime;
+        if (timer > delay)
+        {
+            timer = 0;
+            shoot();
+        }
     }
 }

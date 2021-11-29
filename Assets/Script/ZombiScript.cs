@@ -8,6 +8,10 @@ public class ZombiScript : MonoBehaviour
     public Animator anim;
     void Start()
     {
+        Invoke("startAnim", Random.Range(0, 1.5f));
+    }
+    public void startAnim()
+    {
         anim = GetComponent<Animator>();
         int randomanimation = Random.Range(0, 2);
         switch (randomanimation)
@@ -22,7 +26,6 @@ public class ZombiScript : MonoBehaviour
                 break;
         }
     }
-
     void Update()
     {
         
