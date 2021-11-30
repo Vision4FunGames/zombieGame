@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -26,7 +27,10 @@ public class CameraFollow : MonoBehaviour
         Offset = transform.position - Target.position;
         Target2 = Target;
     }
-
+    public void finishpos()
+    {
+        transform.DOMove(Target2.position - new Vector3(+finisposx, -finishposy, -finishposz),1f);
+    }
     private void LateUpdate()
     {
         Vector3 targetPosition = Target2.position + Offset;
@@ -40,7 +44,6 @@ public class CameraFollow : MonoBehaviour
         if (isfinish)
         {
             transform.LookAt(Target2);
-            transform.position = Vector3.Lerp(transform.position, Target2.position - new Vector3(+finisposx, -finishposy, -finishposz), 0.0055f);
         }
         if (lose)
         {

@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     void PlayerSwipe()
     {
         //float newX = startX + (currentTouchPosition.x - initialTouchPosition.x) * swipeSpeed;
-        Quaternion rotatinDegree = Quaternion.Euler(transform.rotation.x, dynamicJoystick.Horizontal*25, transform.rotation.z);
+        Quaternion rotatinDegree = Quaternion.Euler(transform.rotation.x, dynamicJoystick.Horizontal*10, transform.rotation.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotatinDegree, Time.deltaTime * sensitive);
     }
 }

@@ -7,9 +7,10 @@ public class GameManager : Singleton<GameManager>
     public int zombiCount;
     FollowLowZombieSc flzombie;
     PlayerAction plaction;
-
+    ShootDetect sh;
     void Start()
     {
+        Application.targetFrameRate = 60;
         UiManager.Instance.ZombieText.text = zombiCount.ToString();
 
         plaction = FindObjectOfType<PlayerAction>();
@@ -17,6 +18,8 @@ public class GameManager : Singleton<GameManager>
 
     public void failGame()
     {
+        sh = FindObjectOfType<ShootDetect>();
+        sh.enabled = false;
         flzombie = FindObjectOfType<FollowLowZombieSc>();
         for (int i = 0; i < flzombie.freezombie.transform.childCount; i++)
         {

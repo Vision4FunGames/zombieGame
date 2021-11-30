@@ -27,12 +27,12 @@ public class FinishZombieSc : MonoBehaviour
         anim.speed = 0.5f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(!isDead)
         {
             Vector3 dir = shootdetect.transform.position - transform.position;
-            transform.Translate(Vector3.forward * 0.06f);
+            transform.Translate(Vector3.forward * 0.2f);
         }
     }
 
