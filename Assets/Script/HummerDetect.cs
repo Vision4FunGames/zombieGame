@@ -17,7 +17,7 @@ public class HummerDetect : MonoBehaviour
     {
         if(other.CompareTag("zombie"))
         {
-            transform.GetComponentInParent<HummerSctipr>().HummerRotate();
+           // transform.parent.GetComponentInChildren<HummerSctipr>().HummerRotate();
         }
     }
 }

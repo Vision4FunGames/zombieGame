@@ -16,6 +16,10 @@ public class FollowLowZombieSc : MonoBehaviour
 
     public int zombiCount;
     public float addforceUp;
+
+
+    public float islemTimer;
+    public bool isokeyislem;
     void Start()
     {
         zombiCount = GameManager.Instance.zombiCount;
@@ -28,6 +32,14 @@ public class FollowLowZombieSc : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.Lerp(transform.position, player.transform.position - offset, 1f * Time.deltaTime);
+        islemTimer = Time.deltaTime + islemTimer;
+
+        if (islemTimer > 1)
+        {
+            isokeyislem = true;
+        }
+        else
+            isokeyislem = false;
     }
     public void explosion() // patlama zombi eksiliyor.
     {
@@ -104,18 +116,20 @@ public class FollowLowZombieSc : MonoBehaviour
     }
     public void carpmaislemi(int multpy)
     {
-        int count = 0;
-        for (int i = 0; i < transform.GetChild(0).childCount; i++)
+        if (isokeyislem)
         {
-            if (transform.GetChild(0).GetChild(i).childCount > 0)
+            int count = 0;
+            for (int i = 0; i < transform.GetChild(0).childCount; i++)
             {
-                count++;
+                if (transform.GetChild(0).GetChild(i).childCount > 0)
+                {
+                    count++;
+                }
             }
+            zombiCount = ((count * multpy) - count) + (zombiCount * multpy);
+            UiManager.Instance.ZombieText.text = (zombiCount + count).ToString();
+            extraPeopleUpdate();
         }
-        zombiCount = ((count * multpy) - count) + (zombiCount * multpy);
-
-        UiManager.Instance.ZombieText.text = (zombiCount + count).ToString();
-        extraPeopleUpdate();
     }
     public void extraPeopleUpdate()
     {

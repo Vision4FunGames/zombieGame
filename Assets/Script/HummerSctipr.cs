@@ -10,6 +10,7 @@ public class HummerSctipr : MonoBehaviour
     {
         //HummerRotate();
         followZombie = FindObjectOfType<FollowLowZombieSc>();
+        HummerRotate();
     }
 
     void Update()
@@ -19,12 +20,11 @@ public class HummerSctipr : MonoBehaviour
 
     public void HummerRotate()
     {
-        transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 0.5f).SetEase(Ease.InQuart).OnComplete(() =>
+        transform.DOLocalRotateQuaternion(Quaternion.Euler(0, 0, 90), 0.5f).SetEase(Ease.InQuart).OnComplete(() =>
         {
-            followZombie.explosion();
-            transform.DORotateQuaternion(Quaternion.Euler(0, 0, -90), 1).SetEase(Ease.Linear).OnComplete(() =>
+            transform.DOLocalRotateQuaternion(Quaternion.Euler(0, 0, 0), 1).SetEase(Ease.Linear).OnComplete(() =>
             {
-            
+                HummerRotate();
             });
         });
     }
