@@ -67,14 +67,14 @@ public class FollowLowZombieSc : MonoBehaviour
     IEnumerator usepower(GameObject temp)
     {
         yield return new WaitForSeconds(0.1f);
-        Vector3 explosionPos = transform.position;
+        Vector3 explosionPos = transform.forward;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
 
             if (rb != null)
-                rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
+                rb.AddExplosionForce(power, explosionPos, radius, 1.0F);
         }
     }
 

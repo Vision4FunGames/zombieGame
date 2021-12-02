@@ -9,6 +9,7 @@ TagManager:
   - zombieChild
   - FinishPoint
   - finishZombie
+  - slowobs
   layers:
   - Default
   - TransparentFX

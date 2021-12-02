@@ -12,6 +12,7 @@ public class PlayerAction : MonoBehaviour
     FollowLowZombieSc followZombie;
     public GameObject[] freezombie;
     Vector3 xoffset;
+    int slowobscount;
     void Start()
     {
         anim = transform.GetChild(1).GetComponent<Animator>();
@@ -29,11 +30,8 @@ public class PlayerAction : MonoBehaviour
             _player.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1f);
             _player.transform.DOMove(finishPoint.transform.position, 2f).OnComplete(() =>
             {
-
-                //followZombie.gameObject.SetActive(false);
                 coverWall();
                 FreeZombie();
-                // other.gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 _player.GetComponent<ShootDetect>().enabled = true;
                 Camera.main.GetComponent<CameraFollow>().Target2 = _player.transform.GetChild(2);
             });
@@ -43,6 +41,19 @@ public class PlayerAction : MonoBehaviour
             Camera.main.GetComponent<CameraFollow>().Target = _player.transform;
             Camera.main.GetComponent<CameraFollow>().isfinish = true;
             Camera.main.GetComponent<CameraFollow>().finishpos();
+        }
+        if (other.CompareTag("slowobs"))
+        {
+            other.GetComponent<SlowObs>().ActiveSlowTypeAction(gameObject);
+
+            if (slowobscount == 0)
+                followZombie.offset.z = 50;
+            else if (slowobscount == 1)
+                followZombie.offset.z = 40;
+            else if (slowobscount == 2)
+                followZombie.offset.z = 30;
+
+            slowobscount++;
         }
     }
     public void FreeZombie()
@@ -68,7 +79,7 @@ public class PlayerAction : MonoBehaviour
     }
     public void StartFreeZombie(int count)
     {
-        if(count > 10)
+        if (count > 10)
         {
             count = 10;
         }

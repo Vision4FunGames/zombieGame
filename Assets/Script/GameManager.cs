@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     FollowLowZombieSc flzombie;
     PlayerAction plaction;
     ShootDetect sh;
+    public GameObject puffparticle;
     void Start()
     {
         Application.targetFrameRate = 60;
