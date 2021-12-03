@@ -6,6 +6,7 @@ public class ZombiScript : MonoBehaviour
 {
     [HideInInspector]
     public Animator anim;
+    public GameObject ragdollobj;
     void Start()
     {
         Invoke("startAnim", Random.Range(0, 1.5f));
@@ -26,6 +27,7 @@ public class ZombiScript : MonoBehaviour
                 break;
         }
     }
+
     void Update()
     {
         

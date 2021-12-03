@@ -10,6 +10,7 @@ TagManager:
   - FinishPoint
   - finishZombie
   - slowobs
+  - slowobschild
   layers:
   - Default
   - TransparentFX

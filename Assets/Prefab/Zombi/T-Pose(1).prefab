@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  ragdollobj: {fileID: 1288554046605186357, guid: 99acf1032de7f2d47ac98818319e2e42, type: 3}
 --- !u!114 &1322522707964176403
 MonoBehaviour:
   m_ObjectHideFlags: 0

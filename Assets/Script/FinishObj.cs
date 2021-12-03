@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class FinishObj : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject[] friends;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+    public void activeFriend()
+    {
+        for (int i = 0; i < friends.Length; i++)
+        {
+            friends[i].GetComponent<FriendSc>().enabled = true;
+        }
     }
 }

@@ -12,6 +12,8 @@ public class ShootDetect : MonoBehaviour
 
     public float timer;
     public float delay;
+
+    public bool isTrue;
     void Start()
     {
         foreach (FinishZombieSc fooObj in FindObjectsOfType<FinishZombieSc>())
@@ -24,6 +26,7 @@ public class ShootDetect : MonoBehaviour
     {
         if (finishZombies.Count > 0)
         {
+            print("a");
             float DistanceFloat = Vector3.Distance(finishZombies[0].transform.position, transform.position);
             for (int i = 0; i < finishZombies.Count; i++)
             {
@@ -59,5 +62,6 @@ public class ShootDetect : MonoBehaviour
             timer = 0;
             shoot();
         }
+
     }
 }

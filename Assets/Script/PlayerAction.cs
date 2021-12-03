@@ -33,6 +33,7 @@ public class PlayerAction : MonoBehaviour
                 coverWall();
                 FreeZombie();
                 _player.GetComponent<ShootDetect>().enabled = true;
+                other.GetComponent<FinishObj>().activeFriend();
                 Camera.main.GetComponent<CameraFollow>().Target2 = _player.transform.GetChild(2);
             });
             _player.transform.parent = null;
@@ -45,14 +46,12 @@ public class PlayerAction : MonoBehaviour
         if (other.CompareTag("slowobs"))
         {
             other.GetComponent<SlowObs>().ActiveSlowTypeAction(gameObject);
-
             if (slowobscount == 0)
                 followZombie.offset.z = 50;
             else if (slowobscount == 1)
                 followZombie.offset.z = 40;
             else if (slowobscount == 2)
                 followZombie.offset.z = 30;
-
             slowobscount++;
         }
     }
