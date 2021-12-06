@@ -8,13 +8,12 @@ public class SlowObs : MonoBehaviour
     public Collider[] walls;
     public float radius;
     public float power;
-    // Start is called before the first frame update
+    public GameObject destroyObj;
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -43,8 +42,10 @@ public class SlowObs : MonoBehaviour
         {
             GameObject temp2 = Instantiate(GameManager.Instance.puffparticle);
             temp2.transform.position = transform.position - new Vector3(0, +2, 12);
+            destroyObj.SetActive(true);
             Destroy(temp2, 3f);
-            Destroy(transform.gameObject);
+            Destroy(transform.GetChild(0).gameObject);
+            Destroy(transform.gameObject,5f);
         }
     }
 }

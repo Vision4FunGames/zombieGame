@@ -7,6 +7,7 @@ public class TrapRed : MonoBehaviour
 {
     public DOTweenPath dppat;
     public GameObject parentObj;
+    public GameObject gate;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class TrapRed : MonoBehaviour
     }
     public void ActiveTraps()
     {
+        gate.transform.DORotateQuaternion(Quaternion.Euler(0,0,-110f),1);
         for (int i = 0; i < parentObj.transform.childCount; i++)
         {
             parentObj.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;

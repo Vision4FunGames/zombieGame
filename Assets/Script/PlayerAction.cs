@@ -51,7 +51,12 @@ public class PlayerAction : MonoBehaviour
             else if (slowobscount == 1)
                 followZombie.offset.z = 40;
             else if (slowobscount == 2)
-                followZombie.offset.z = 30;
+            {
+                followZombie.offset.z = 25;
+                plmovement.speed = 0;
+                plmovement.forwardSpeed = 0;
+                GameManager.Instance.hardfailGame();
+            }
             slowobscount++;
         }
     }

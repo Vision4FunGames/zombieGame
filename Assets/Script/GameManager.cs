@@ -16,7 +16,27 @@ public class GameManager : Singleton<GameManager>
 
         plaction = FindObjectOfType<PlayerAction>();
     }
-
+    public void hardfailGame()
+    {
+        StartCoroutine(waitforsecondanim());
+        //Camera.main.GetComponent<CameraFollow>().lose = true;
+    }
+    IEnumerator waitforsecondanim()
+    {
+        yield return new WaitForSeconds(1.5f);
+        flzombie = FindObjectOfType<FollowLowZombieSc>();
+        for (int i = 0; i < flzombie.freezombie.transform.childCount; i++)
+        {
+            if (flzombie.freezombie.transform.GetChild(i).childCount > 0)
+            {
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<ZombiScript>().anim.SetBool("run1", false);
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<ZombiScript>().anim.SetBool("run2", false);
+                flzombie.freezombie.transform.GetChild(i).GetChild(0).GetComponent<ZombiScript>().anim.SetBool("idle", true);
+            }
+        }
+        plaction.anim.SetBool("dead", true);
+        UiManager.Instance.loseP.SetActive(true);
+    }
     public void failGame()
     {
         sh = FindObjectOfType<ShootDetect>();
