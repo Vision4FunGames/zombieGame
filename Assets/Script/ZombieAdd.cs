@@ -7,9 +7,10 @@ public class ZombieAdd : MonoBehaviour
 {
     public typeAdd mytype;
     public int multply;
+    FollowLowZombieSc fl;
     void Start()
     {
-        
+        fl = FindObjectOfType<FollowLowZombieSc>();
     }
 
     // Update is called once per frame
@@ -20,11 +21,11 @@ public class ZombieAdd : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("zombie"))
+        if (other.CompareTag("Player"))
         {
             if(mytype == typeAdd.carpma)
             {
-                other.GetComponent<FollowLowZombieSc>().carpmaislemi(multply);
+                fl.carpmaislemi(multply);
             }
         }
     }

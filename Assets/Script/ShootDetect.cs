@@ -26,7 +26,6 @@ public class ShootDetect : MonoBehaviour
     {
         if (finishZombies.Count > 0)
         {
-            print("a");
             float DistanceFloat = Vector3.Distance(finishZombies[0].transform.position, transform.position);
             for (int i = 0; i < finishZombies.Count; i++)
             {

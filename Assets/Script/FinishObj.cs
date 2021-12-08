@@ -21,4 +21,11 @@ public class FinishObj : MonoBehaviour
             friends[i].GetComponent<FriendSc>().enabled = true;
         }
     }
+    public void stopFight()
+    {
+        for (int i = 0; i < friends.Length; i++)
+        {
+            friends[i].GetComponent<FriendSc>().enabled = false;
+        }
+    }
 }

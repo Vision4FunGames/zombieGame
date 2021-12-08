@@ -44,8 +44,9 @@ public class SlowObs : MonoBehaviour
             temp2.transform.position = transform.position - new Vector3(0, +2, 12);
             destroyObj.SetActive(true);
             Destroy(temp2, 3f);
-            Destroy(transform.GetChild(0).gameObject);
+            Destroy(transform.GetChild(0).GetChild(0).gameObject);
             Destroy(transform.gameObject,5f);
+            Destroy(transform.GetChild(1).GetChild(0).gameObject);
         }
     }
 }

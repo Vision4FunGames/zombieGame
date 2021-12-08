@@ -11,8 +11,18 @@ public class PlayerAction : MonoBehaviour
     public GameObject finishPoint;
     FollowLowZombieSc followZombie;
     public GameObject[] freezombie;
+    public GameObject bombprefab;
     Vector3 xoffset;
     int slowobscount;
+
+    GameObject parentObj;
+    float timer;
+    float timerAction;
+    public float delaybomb;
+    bool completeBomb;
+    int bombCount;
+
+    float delayAction;
     void Start()
     {
         anim = transform.GetChild(1).GetComponent<Animator>();
@@ -20,44 +30,94 @@ public class PlayerAction : MonoBehaviour
         _player = transform.GetChild(1).gameObject;
         finishPoint = GameObject.FindGameObjectWithTag("FinishPoint");
         followZombie = FindObjectOfType<FollowLowZombieSc>();
+        delayAction = delaybomb;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Finish"))
+        if (timerAction > delayAction)
         {
-            anim.SetBool("Run", true);
-            _player.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1f);
-            _player.transform.DOMove(finishPoint.transform.position, 2f).OnComplete(() =>
+            timerAction = 0;
+            if (other.CompareTag("Finish"))
             {
-                coverWall();
-                FreeZombie();
-                _player.GetComponent<ShootDetect>().enabled = true;
-                other.GetComponent<FinishObj>().activeFriend();
+                anim.SetBool("Run", true);
+                _player.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 1f);
+                _player.transform.DOMove(finishPoint.transform.position, 2f).OnComplete(() =>
+                {
+                    coverWall();
+                    FreeZombie();
+                    _player.GetComponent<ShootDetect>().enabled = true;
+                    other.GetComponent<FinishObj>().activeFriend();
+                    Camera.main.GetComponent<CameraFollow>().Target2 = _player.transform.GetChild(2);
+                });
+                _player.transform.parent = null;
+                plmovement.enabled = false;
                 Camera.main.GetComponent<CameraFollow>().Target2 = _player.transform.GetChild(2);
-            });
-            _player.transform.parent = null;
-            plmovement.enabled = false;
-            Camera.main.GetComponent<CameraFollow>().Target2 = _player.transform.GetChild(2);
-            Camera.main.GetComponent<CameraFollow>().Target = _player.transform;
-            Camera.main.GetComponent<CameraFollow>().isfinish = true;
-            Camera.main.GetComponent<CameraFollow>().finishpos();
-        }
-        if (other.CompareTag("slowobs"))
-        {
-            other.GetComponent<SlowObs>().ActiveSlowTypeAction(gameObject);
-            if (slowobscount == 0)
-                followZombie.offset.z = 50;
-            else if (slowobscount == 1)
-                followZombie.offset.z = 40;
-            else if (slowobscount == 2)
-            {
-                followZombie.offset.z = 25;
-                plmovement.speed = 0;
-                plmovement.forwardSpeed = 0;
-                GameManager.Instance.hardfailGame();
+                Camera.main.GetComponent<CameraFollow>().Target = _player.transform;
+                Camera.main.GetComponent<CameraFollow>().isfinish = true;
+                Camera.main.GetComponent<CameraFollow>().finishpos();
             }
-            slowobscount++;
+            if (other.CompareTag("slowobs"))
+            {
+                other.GetComponent<SlowObs>().ActiveSlowTypeAction(gameObject);
+                if (slowobscount == 0)
+                    followZombie.offset.z = 30;
+                else if (slowobscount == 1)
+                    followZombie.offset.z = 20;
+                else if (slowobscount == 2)
+                {
+                    followZombie.offset.z = 15;
+                    plmovement.speed = 0;
+                    plmovement.forwardSpeed = 0;
+                    GameManager.Instance.hardfailGame();
+                }
+                slowobscount++;
+            }
+            if (other.CompareTag("Bomb"))
+            {
+                parentObj = other.gameObject;
+                completeBomb = true;
+                timer = 0;
+            }
+            if (other.CompareTag("Guns"))
+            {
+                GameManager.Instance.gunsSet›mage();
+                Destroy(other.gameObject);
+            }
+        }
+    }
+    public void spawnBomb()
+    {
+        if (bombCount < 3)
+        {
+            GameObject tempBomb = Instantiate(bombprefab);
+            tempBomb.transform.position = new Vector3(transform.position.x, 1, transform.position.z - 28f);
+            tempBomb.transform.parent = parentObj.transform.GetChild(0).transform;
+            if (bombCount == 2)
+            {
+                tempBomb.GetComponent<Collider>().enabled = true;
+            }
+            bombCount++;
+        }
+        else
+        {
+            completeBomb = false;
+        }
+
+    }
+    private void Update()
+    {
+
+        timerAction = timerAction + Time.deltaTime;
+
+        if (completeBomb)
+        {
+            timer = timer + Time.deltaTime;
+            if (timer > delaybomb)
+            {
+                timer = 0;
+                spawnBomb();
+            }
         }
     }
     public void FreeZombie()

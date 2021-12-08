@@ -20,7 +20,7 @@ public class SlowobsChild : MonoBehaviour
     {
         if (isGo)
         {
-            rb.AddForce(new Vector3(1,0,0) * 10f);
+            rb.AddForce(new Vector3(1,0,0) * 110f);
         }
     }
 

@@ -9,6 +9,7 @@ public class UiManager : Singleton<UiManager>
     public TextMeshProUGUI ZombieText;
     public GameObject loseP;
     public GameObject winP;
+    public Image gunImage;
     void Start()
     {
         

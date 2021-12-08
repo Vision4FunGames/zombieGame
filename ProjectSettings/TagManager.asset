@@ -11,6 +11,8 @@ TagManager:
   - finishZombie
   - slowobs
   - slowobschild
+  - Bomb
+  - Guns
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -8,12 +11,18 @@ public class GameManager : Singleton<GameManager>
     FollowLowZombieSc flzombie;
     PlayerAction plaction;
     ShootDetect sh;
+    FinishObj fsObj;
     public GameObject puffparticle;
+    public GameObject[] guns›tem;
+    float currentFillValue;
+
+    public int levelvalue;
     void Start()
     {
+        guns›tem = GameObject.FindGameObjectsWithTag("Guns");
         Application.targetFrameRate = 60;
         UiManager.Instance.ZombieText.text = zombiCount.ToString();
-
+        fsObj = FindObjectOfType<FinishObj>();
         plaction = FindObjectOfType<PlayerAction>();
     }
     public void hardfailGame()
@@ -39,6 +48,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void failGame()
     {
+        fsObj.stopFight();
         sh = FindObjectOfType<ShootDetect>();
         sh.enabled = false;
         flzombie = FindObjectOfType<FollowLowZombieSc>();
@@ -59,5 +69,23 @@ public class GameManager : Singleton<GameManager>
     public void winGame()
     {
         UiManager.Instance.winP.SetActive(true);
+        fsObj.stopFight();
+    }
+    private void Update()
+    {
+        UiManager.Instance.gunImage.GetComponent<Image>().fillAmount = Mathf.Lerp(UiManager.Instance.gunImage.GetComponent<Image>().fillAmount, currentFillValue, 0.055f);
+    }
+    public void gunsSet›mage()
+    {
+        currentFillValue = currentFillValue + (1 / (float)guns›tem.Length);
+    }
+
+    public void restartLevel()
+    {
+        SceneManager.LoadScene("MainGame");
+    }
+    public void NextLevel()
+    {
+        SceneManager.LoadScene("MainGame");
     }
 }

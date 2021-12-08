@@ -25,7 +25,7 @@ public class FallObj : MonoBehaviour
         isOpen = true;
         Invoke("ExtraPeople", 3f);
         rightWall.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 65), 0.2f).SetEase(Ease.InQuart);
-        leftWall.transform.DORotateQuaternion(Quaternion.Euler(0, 0, -65), 0.2f).SetEase(Ease.InQuart).OnComplete(() =>
+        leftWall.transform.DORotateQuaternion(Quaternion.Euler(0, 0, -115), 0.2f).SetEase(Ease.InQuart).OnComplete(() =>
         {
             //followzombie.fallZombies();
         });
@@ -52,7 +52,11 @@ public class FallObj : MonoBehaviour
     }
     public void fallZombies(GameObject other)
     {
-        zombiesPrefab.transform.GetChild(count).gameObject.SetActive(true);
+        if (zombiesPrefab.transform.childCount > count)
+        {
+            zombiesPrefab.transform.GetChild(count).gameObject.SetActive(true);
+        }
+        Destroy(other.gameObject);
         Destroy(other.gameObject);
         GameObject current = other.gameObject.transform.parent.gameObject;
         count++;
