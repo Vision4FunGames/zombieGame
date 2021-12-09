@@ -23,7 +23,7 @@ public class TrapRed : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ActiveTraps();
+            Invoke("ActiveTraps",1f);
         }
     }
     public void ActiveTraps()

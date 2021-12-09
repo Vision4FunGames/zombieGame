@@ -47,7 +47,7 @@ public class FallObj : MonoBehaviour
     }
     IEnumerator waitforsecondnext(GameObject obj)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         fallZombies(obj);
     }
     public void fallZombies(GameObject other)

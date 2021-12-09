@@ -16,10 +16,10 @@ public class PlayerAction : MonoBehaviour
     int slowobscount;
 
     GameObject parentObj;
-    float timer;
-    float timerAction;
+    public float timer;
+    public float timerAction;
     public float delaybomb;
-    bool completeBomb;
+    public bool completeBomb;
     int bombCount;
 
     float delayAction;
@@ -75,9 +75,7 @@ public class PlayerAction : MonoBehaviour
             }
             if (other.CompareTag("Bomb"))
             {
-                parentObj = other.gameObject;
-                completeBomb = true;
-                timer = 0;
+                StartCoroutine(waitforsc(other.gameObject));
             }
             if (other.CompareTag("Guns"))
             {
@@ -85,6 +83,17 @@ public class PlayerAction : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+    IEnumerator waitforsc(GameObject other)
+    {
+        yield return new WaitForSeconds(1f);
+        bombtrigger(other);
+    }
+    public void bombtrigger(GameObject other)
+    {
+        parentObj = other.gameObject;
+        completeBomb = true;
+        timer = 0;
     }
     public void spawnBomb()
     {
@@ -102,6 +111,7 @@ public class PlayerAction : MonoBehaviour
         else
         {
             completeBomb = false;
+            bombCount = 0;
         }
 
     }
@@ -135,7 +145,6 @@ public class PlayerAction : MonoBehaviour
             }
         }
         count = count - currentcount;
-
         if (count > 0)
         {
             StartFreeZombie(count);
@@ -143,7 +152,7 @@ public class PlayerAction : MonoBehaviour
     }
     public void StartFreeZombie(int count)
     {
-        if (count > 10)
+        if (count > 50)
         {
             count = 10;
         }

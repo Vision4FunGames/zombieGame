@@ -131,6 +131,20 @@ public class FollowLowZombieSc : MonoBehaviour
             extraPeopleUpdate();
         }
     }
+    public void toplamaislemi(int addcount)
+    {
+        int count = 0;
+        for (int i = 0; i < transform.GetChild(0).childCount; i++)
+        {
+            if (transform.GetChild(0).GetChild(i).childCount > 0)
+            {
+                count++;
+            }
+        }
+        zombiCount = addcount + zombiCount;
+        UiManager.Instance.ZombieText.text = (zombiCount + count).ToString();
+        extraPeopleUpdate();
+    }
     public void extraPeopleUpdate()
     {
         for (int i = 0; i < freezombie.transform.childCount; i++)

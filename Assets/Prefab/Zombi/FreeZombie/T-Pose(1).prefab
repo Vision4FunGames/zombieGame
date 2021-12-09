@@ -1185,7 +1185,7 @@ Transform:
   m_GameObject: {fileID: 5697879073346695595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4149200556979275624}
   - {fileID: 579113548425726853}
@@ -1255,6 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  ragdollobj: {fileID: 0}
 --- !u!114 &4887398480466349184
 MonoBehaviour:
   m_ObjectHideFlags: 0

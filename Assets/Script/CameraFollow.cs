@@ -36,9 +36,10 @@ public class CameraFollow : MonoBehaviour
         Vector3 targetPosition = Target2.position + Offset;
         //targetPosition.x = transform.position.x;
         float xpos = targetPosition.x;
-        newpos = Mathf.Lerp(newpos, (Mathf.Clamp(xpos, 30, 40)), 0.065f);
+        newpos = Mathf.Lerp(newpos, (Mathf.Clamp(xpos, 20, 40)), 0.065f);
+        targetPosition.x = newpos;
         posTransform = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
-        posTransform.x = transform.position.x; ;
+        //posTransform.x = transform.position.x;
         if (!isfinish)
             transform.position = posTransform;
         if (isfinish)
