@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject[] levels;
     public int zombiCount;
+    PlayerController plController;
     FollowLowZombieSc flzombie;
     PlayerAction plaction;
     ShootDetect sh;
@@ -15,15 +17,27 @@ public class GameManager : Singleton<GameManager>
     public GameObject puffparticle;
     public GameObject[] guns›tem;
     float currentFillValue;
-
+    public bool tutorial;
     public int levelvalue;
     void Start()
     {
+        if (!PlayerPrefs.HasKey("Level"))
+        {
+            PlayerPrefs.SetInt("Level", 0);
+            tutorial = true;
+        }
+        plController = FindObjectOfType<PlayerController>();
+        levels[PlayerPrefs.GetInt("Level")%4].SetActive(true);
         guns›tem = GameObject.FindGameObjectsWithTag("Guns");
         Application.targetFrameRate = 60;
         UiManager.Instance.ZombieText.text = zombiCount.ToString();
         fsObj = FindObjectOfType<FinishObj>();
         plaction = FindObjectOfType<PlayerAction>();
+    }
+    public void GameStart()
+    {
+        plController.speed = 20;
+        plController.forwardSpeed = 26;
     }
     public void hardfailGame()
     {
@@ -86,6 +100,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void NextLevel()
     {
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
         SceneManager.LoadScene("MainGame");
     }
 }
