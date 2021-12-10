@@ -21,6 +21,7 @@ public class ZombiAdd : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            VibrationManager.Instance.Vib();
             fl.toplamaislemi(parentObj.transform.childCount);
             for (int i = 0; i < parentObj.transform.childCount; i++)
             {

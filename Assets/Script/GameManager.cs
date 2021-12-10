@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-
+using ElephantSDK;
+using GameAnalyticsSDK;
 public class GameManager : Singleton<GameManager>
 {
     public GameObject[] levels;
@@ -33,6 +34,15 @@ public class GameManager : Singleton<GameManager>
         UiManager.Instance.ZombieText.text = zombiCount.ToString();
         fsObj = FindObjectOfType<FinishObj>();
         plaction = FindObjectOfType<PlayerAction>();
+//#if UNITY_IOS
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            if (ElephantIOS.getConsentStatus() == "Authorized")
+            {
+                GameAnalytics.Initialize();
+            }
+        }
+//#endif
     }
     public void GameStart()
     {
@@ -79,11 +89,31 @@ public class GameManager : Singleton<GameManager>
         plaction.anim.SetBool("dead", true);
         UiManager.Instance.loseP.SetActive(true);
         Camera.main.GetComponent<CameraFollow>().lose = true;
+//#if UNITY_IOS
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            if (ElephantIOS.getConsentStatus() == "Authorized")
+            {
+                Elephant.LevelFailed(PlayerPrefs.GetInt("Level"));
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, PlayerPrefs.GetInt("Level").ToString());
+            }
+        }
+//#endif
     }
     public void winGame()
     {
         UiManager.Instance.winP.SetActive(true);
         fsObj.stopFight();
+//#if UNITY_IOS
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            if (ElephantIOS.getConsentStatus() == "Authorized")
+            {
+                Elephant.LevelCompleted(PlayerPrefs.GetInt("Level"));
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, PlayerPrefs.GetInt("Level").ToString());
+            }
+        }
+//#endif
     }
     private void Update()
     {

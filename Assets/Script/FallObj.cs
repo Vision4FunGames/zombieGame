@@ -39,6 +39,7 @@ public class FallObj : MonoBehaviour
         if (other.CompareTag("zombie"))
         {
             isOpenWalls();
+            VibrationManager.Instance.Vib();
         }
         if (other.CompareTag("zombieChild"))
         {

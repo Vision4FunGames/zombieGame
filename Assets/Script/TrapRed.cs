@@ -23,6 +23,7 @@ public class TrapRed : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            VibrationManager.Instance.Vib();
             Invoke("ActiveTraps",1f);
         }
     }

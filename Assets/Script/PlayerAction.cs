@@ -76,6 +76,7 @@ public class PlayerAction : MonoBehaviour
             if (other.CompareTag("Bomb"))
             {
                 StartCoroutine(waitforsc(other.gameObject));
+                VibrationManager.Instance.Vib();
             }
             if (other.CompareTag("Guns"))
             {
