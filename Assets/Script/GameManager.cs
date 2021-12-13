@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
     ShootDetect sh;
     FinishObj fsObj;
     public GameObject puffparticle;
-    public GameObject[] guns›tem;
+    public GameObject[] gunsitem;
     float currentFillValue;
     public bool tutorial;
     public int levelvalue;
@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
         }
         plController = FindObjectOfType<PlayerController>();
         levels[PlayerPrefs.GetInt("Level")%4].SetActive(true);
-        guns›tem = GameObject.FindGameObjectsWithTag("Guns");
+        gunsitem = GameObject.FindGameObjectsWithTag("Guns");
         Application.targetFrameRate = 60;
         UiManager.Instance.ZombieText.text = zombiCount.ToString();
         fsObj = FindObjectOfType<FinishObj>();
@@ -119,9 +119,9 @@ public class GameManager : Singleton<GameManager>
     {
         UiManager.Instance.gunImage.GetComponent<Image>().fillAmount = Mathf.Lerp(UiManager.Instance.gunImage.GetComponent<Image>().fillAmount, currentFillValue, 0.055f);
     }
-    public void gunsSet›mage()
+    public void gunsSetimage()
     {
-        currentFillValue = currentFillValue + (1 / (float)guns›tem.Length);
+        currentFillValue = currentFillValue + (1 / (float)gunsitem.Length);
     }
 
     public void restartLevel()

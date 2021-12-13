@@ -80,7 +80,7 @@ public class PlayerAction : MonoBehaviour
             }
             if (other.CompareTag("Guns"))
             {
-                GameManager.Instance.gunsSet›mage();
+                GameManager.Instance.gunsSetimage();
                 Destroy(other.gameObject);
             }
         }

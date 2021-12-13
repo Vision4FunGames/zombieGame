@@ -10885,7 +10885,7 @@ MonoBehaviour:
   - {fileID: 483186990}
   - {fileID: 1627694093}
   - {fileID: 1031205276}
-  zombiCount: 90
+  zombiCount: 110
   puffparticle: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 3}
   "guns\u0130tem": []
   tutorial: 0
