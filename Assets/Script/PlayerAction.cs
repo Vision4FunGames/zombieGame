@@ -151,21 +151,28 @@ public class PlayerAction : MonoBehaviour
             StartFreeZombie(count);
         }
     }
+    bool isF;
     public void StartFreeZombie(int count)
     {
-        if (count > 50)
+        print(count);
+        if(!isF)
         {
-            count = 10;
-        }
-        for (int i = 0; i < count; i++)
-        {
-            GameObject temp = Instantiate(freezombie[UnityEngine.Random.Range(0, 3)]);
-            xoffset = xoffset - new Vector3(UnityEngine.Random.Range(-3f, 3f), 0, 1.5f);
-            if (xoffset.x < -3)
-                xoffset.x = -3;
-            if (xoffset.x > 2)
-                xoffset.x = 2;
-            temp.transform.position = followZombie.transform.position + xoffset;
+            isF = true;
+            if (count > 110)
+            {
+                count = 30;
+                for (int i = 0; i < count; i++)
+                {
+                    GameObject temp = Instantiate(freezombie[UnityEngine.Random.Range(0, 3)]);
+                    xoffset = xoffset - new Vector3(UnityEngine.Random.Range(-3f, 3f), 0, 1.5f);
+                    if (xoffset.x < -3)
+                        xoffset.x = -3;
+                    if (xoffset.x > 2)
+                        xoffset.x = 2;
+                    temp.transform.position = followZombie.transform.position + xoffset;
+                }
+            }
+          
         }
     }
     public void coverWall()
