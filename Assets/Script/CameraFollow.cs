@@ -29,7 +29,8 @@ public class CameraFollow : MonoBehaviour
     }
     public void finishpos()
     {
-        transform.DOMove(Target2.position - new Vector3(+finisposx, -finishposy, -finishposz),1f);
+        transform.DOMove(Target2.position - new Vector3(+finisposx, -finishposy, -finishposz),1f).OnComplete(()=> { transform.DOMoveX(14, 1); });
+      
     }
     private void LateUpdate()
     {

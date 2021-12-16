@@ -47,6 +47,7 @@ public class FollowLowZombieSc : MonoBehaviour
         {
             if (transform.GetChild(0).GetChild(i).childCount > 0)
             {
+                UiManager.Instance.scoreValue = UiManager.Instance.scoreValue + 1;
                 Destroy(transform.GetChild(0).GetChild(i).GetChild(0).transform.gameObject);
             }
             extraPeople(i);

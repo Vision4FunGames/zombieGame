@@ -57,6 +57,7 @@ public class FallObj : MonoBehaviour
         {
             zombiesPrefab.transform.GetChild(count).gameObject.SetActive(true);
         }
+        UiManager.Instance.scoreValue = UiManager.Instance.scoreValue + 1;
         Destroy(other.gameObject);
         Destroy(other.gameObject);
         GameObject current = other.gameObject.transform.parent.gameObject;

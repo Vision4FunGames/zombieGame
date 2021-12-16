@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager>
         }
         plController = FindObjectOfType<PlayerController>();
         levels[PlayerPrefs.GetInt("Level")%4].SetActive(true);
+        UiManager.Instance.leveltxt.text = "Level: " + (PlayerPrefs.GetInt("Level")+1).ToString();
         gunsitem = GameObject.FindGameObjectsWithTag("Guns");
         Application.targetFrameRate = 60;
         UiManager.Instance.ZombieText.text = zombiCount.ToString();

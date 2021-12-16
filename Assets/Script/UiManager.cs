@@ -10,6 +10,10 @@ public class UiManager : Singleton<UiManager>
     public GameObject loseP;
     public GameObject winP;
     public Image gunImage;
+    public Text leveltxt;
+    public Text scoreText;
+
+    public int scoreValue;
     void Start()
     {
         
@@ -17,6 +21,6 @@ public class UiManager : Singleton<UiManager>
 
     void Update()
     {
-        
+        scoreText.text = "Score: " + scoreValue.ToString();
     }
 }

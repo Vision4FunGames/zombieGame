@@ -44,6 +44,7 @@ public class ShootDetect : MonoBehaviour
                 finishZombies[count].GetComponent<Animator>().SetBool("death", true);
                 finishZombies[count].GetComponent<Animator>().speed = 1;
                 finishZombies[count].isDead = true;
+                UiManager.Instance.scoreValue = UiManager.Instance.scoreValue + 2;
                 finishZombies.Remove(finishZombies[count]);
             });
         }

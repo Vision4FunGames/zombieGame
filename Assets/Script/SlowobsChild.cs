@@ -33,6 +33,7 @@ public class SlowobsChild : MonoBehaviour
             tempragdoll.transform.GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.right * power, ForceMode.Impulse);
             tempragdoll.transform.GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up * power, ForceMode.Impulse);
             fallZombies(other.gameObject);
+            UiManager.Instance.scoreValue = UiManager.Instance.scoreValue + 1;
         }
     }
 
