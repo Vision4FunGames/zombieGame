@@ -8,6 +8,7 @@ public class ShootDetect : MonoBehaviour
     public List<FinishZombieSc> finishZombies;
     public GameObject spawnBullet;
     public GameObject bullet;
+    public GameObject gun;
     public int count;
 
     public float timer;
@@ -20,6 +21,7 @@ public class ShootDetect : MonoBehaviour
         {
             finishZombies.Add(fooObj);
         }
+        gun.SetActive(true);
     }
 
     public void shoot()
